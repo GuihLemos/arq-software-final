@@ -1,0 +1,145 @@
+@CHARSET "ISO-8859-1";
+
+
+
+
+
+
+body, html {
+    position: absolute;    
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+
+section {
+    position: absolute;
+    background-color: whitesmoke;
+    top: 40px;
+    bottom: 40px;
+    width: 100%;
+    overflow: auto;    
+    z-index: 0;
+    font-size:15px; 
+}
+
+section #container {
+    position: absolute;
+    box-shadow: 0px 0px 10px black;
+    background-color: white;
+    margin: auto;
+    width: 400px;
+    min-height: 100%;
+    right: 0px;
+    left: 0px;
+}
+
+header,
+footer {
+    position: absolute;
+    background-color: gainsboro;
+    height: 40px;
+    width: 100%;
+    box-shadow: 0px 0px 10px black;
+    z-index: 1;
+    font-size:30px;
+    text-align: center;
+}
+
+header {
+    top: 0px;
+}
+
+footer {
+    bottom: 0px;
+}
+
+.invisivel {
+    display: none;
+}
+
+window.onload = posicionaRodape;
+window.onresize = posicionaRodape;
+
+function posicionaRodape() {
+  var topo = document.querySelector("#topo");
+
+  var conteudo = document.querySelector("#conteudo");
+
+  var rodape = document.querySelector("#rodape");
+
+  var tamanhoTela = window.innerHeight;
+
+  if (rodape.offsetTop < tamanhoTela - rodape.offsetHeight) {
+    conteudo.style.marginBottom = (tamanhoTela - topo.offsetHeight - conteudo.offsetHeight - rodape.offsetHeight - 20) + "px";
+  } else {
+    conteudo.style.marginBottom = "20px";
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: #ccc;
+}
+#topo {
+  width: 100%;
+  height: 150px;
+  background: #555;
+}
+#conteudo {
+  width: 80%;
+  height: 200px;
+  background: #555;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+#rodape {
+  width: 100%;
+  height: 50px;
+  background: #555;
+}
+<div id="topo" onclick="alert(window.innerHeight)"></div>
+<div id="conteudo"></div>
+<div id="rodape"></div>
+
+
+jQuery(document).ready(function($){
+
+  // Aplica a altura toda vez que a janela for redimensionada 
+  $(window).resize(function(event){
+
+    // Altura da Janela
+    var windowHeight = $(window).height();
+    
+    // Altura do Cabeçalho (com margins e paddings)
+    var headerHeight = $('header').outerHeight(true, true);
+    
+    // Altura do Rodapé (com margins e paddings)
+    var footerHeight = $('footer').outerHeight(true, true);
+    
+    // Altura mínima calculada
+    var contentHeight = Math.floor(windowHeight - headerHeight - footerHeight);
+    
+    // Aplica a altura mínima necessária para que o footer encoste na parte
+    // inferior da janela
+    $('section').css('min-height', contentHeight);
+  
+  }).resize(); // Executa o evento uma vez para que seja aplicada as correções
+
+});
+
+footer{
+  
+  height:30px;
+  line-height:30px;
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<header>Cabeçalho</header>
+<section>Conteúdo</section>
+<footer>Rodapé</footer>

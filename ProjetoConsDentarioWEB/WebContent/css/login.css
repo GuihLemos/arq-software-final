@@ -1,0 +1,6 @@
+@CHARSET "ISO-8859-1";
+
+#nav{height:7px; width:60%;padding:7px;}
+    #sup_direito{float:right; width:auto; }
+        #login,
+        #senha, #cadastrar{float:center;}

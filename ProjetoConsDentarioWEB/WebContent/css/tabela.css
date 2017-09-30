@@ -1,0 +1,5 @@
+@CHARSET "ISO-8859-1";
+
+.tabela { border: 2px solid #000; border-collapse: collapse; margin-left: 20px ;}
+.tabela tbody tr:nth-child(odd){ background: #CCC; }
+$('.tabela tbody tr:nth-child(odd)').css('background','#CCC');
