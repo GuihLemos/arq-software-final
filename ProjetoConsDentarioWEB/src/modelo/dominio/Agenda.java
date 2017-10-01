@@ -10,6 +10,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import modelo.dominio.exception.DadosException;
+import modelo.dominio.exception.ErroDeDominio;
+
 
 
 @Entity
@@ -72,7 +75,8 @@ public class Agenda {
 		return this.data.toString();
 	}
 
-	public void setData(String data) {
+	public void setData(String data) throws DadosException {
+		validaData(data);
 		this.data = data;
 	}
 
@@ -133,6 +137,17 @@ public class Agenda {
 			return false;
 		return true;
 	}
+	
+	//Bloco com metodos de validacao
+	
+	//valida Data
+		public static void validaData (String data) throws DadosException {
+			if (data == null || data.length() == 0)
+				throw new DadosException(new ErroDeDominio(1,Agenda.class,"A data nao pode ficar em branco."));
+			if (data.length() > 8)
+				throw new DadosException(new ErroDeDominio(2,Agenda.class,"Favor inserir uma data valida! Verifique o numero de carateres."));
+			
+		}
 
 	
 	

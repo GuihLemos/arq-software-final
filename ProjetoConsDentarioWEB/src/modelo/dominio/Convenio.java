@@ -11,6 +11,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import modelo.dominio.exception.DadosException;
+import modelo.dominio.exception.ErroDeDominio;
+
 @Entity
 @Table(name = "tab_convenio")
 public class Convenio {
@@ -79,7 +82,8 @@ public class Convenio {
 		return this.nome_convenio.toString();
 	}
 
-	public void setNome_convenio(String nome_convenio) {
+	public void setNome_convenio(String nome_convenio) throws DadosException {
+		validaNomeConvenio(nome_convenio);
 		this.nome_convenio = nome_convenio;
 	}
 
@@ -94,7 +98,8 @@ public class Convenio {
 		return this.data_adesao.toString();
 	}
 
-	public void setData_adesao(String data_adesao) {
+	public void setData_adesao(String data_adesao) throws DadosException {
+		validaDataAdesao(data_adesao);
 		this.data_adesao = data_adesao;
 	}
 
@@ -109,7 +114,8 @@ public class Convenio {
 		return this.inadiplente.toString();
 	}
 
-	public void setInadiplente(String inadiplente) {
+	public void setInadiplente(String inadiplente) throws DadosException {
+		validaInadimplente(inadiplente);
 		this.inadiplente = inadiplente;
 	}
 
@@ -143,5 +149,36 @@ public class Convenio {
 			return false;
 		return true;
 	}
+
+	// Bloco com metodos de validacao
+
+	// Valida Nome do convenio
+	public static void validaNomeConvenio(String nomeConvenio) throws DadosException {
+
+		if (nomeConvenio == null || nomeConvenio.length() == 0)
+			throw new DadosException(new ErroDeDominio(1, Convenio.class,
+					"O nome do convenio nao pode estar em branco. Favor preencher o campo"));
+
+	}
+
+	// valida Data de adesao
+	public static void validaDataAdesao(String dataAdesao) throws DadosException {
+		if (dataAdesao == null || dataAdesao.length() == 0)
+			throw new DadosException(
+					new ErroDeDominio(1, Convenio.class, "A data de adesao nao pode ficar em branco."));
+		if (dataAdesao.length() > 8)
+			throw new DadosException(new ErroDeDominio(2, Convenio.class,
+					"Favor inserir uma data valida! Verifique o numero de carateres."));
+
+	}
+	
+	// Valida inadimplente
+		public static void validaInadimplente(String inadimplente) throws DadosException {
+
+			if (inadimplente == null || inadimplente.length() == 0)
+				throw new DadosException(new ErroDeDominio(1, Convenio.class,
+						"Favor preencher o campo"));
+
+		}
 
 }
